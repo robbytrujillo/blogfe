@@ -41,6 +41,9 @@
         background-color: #f8fafc;
         color: #1e293b;
         font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
       }
 
       .text-primary-custom {
@@ -122,6 +125,11 @@
       .search-input-custom:focus {
         border-color: #4e73df;
         box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
+      }
+
+      /* Content wrapper to push footer down */
+      main.container {
+        flex: 1 0 auto;
       }
 
       /* Article Card */
@@ -299,6 +307,77 @@
         margin-bottom: 1rem;
       }
 
+      /* --- Footer Custom Component --- */
+      .main-footer {
+        background-color: #ffffff;
+        border-top: 1px solid #e2e8f0;
+        padding: 2.5rem 0 1.5rem;
+        margin-top: 4rem;
+        width: 100%;
+      }
+      .footer-brand {
+        font-weight: 700;
+        font-size: 1.25rem;
+        letter-spacing: -0.5px;
+        color: #0f172a;
+        margin-bottom: 0.5rem;
+      }
+      .footer-brand span {
+        color: #4e73df;
+      }
+      .footer-desc {
+        color: #64748b;
+        font-size: 0.85rem;
+        line-height: 1.6;
+      }
+      .footer-title {
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: #0f172a;
+        margin-bottom: 1rem;
+      }
+      .footer-links {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0;
+      }
+      .footer-links li {
+        margin-bottom: 0.5rem;
+      }
+      .footer-links a {
+        color: #64748b;
+        font-size: 0.85rem;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .footer-links a:hover {
+        color: #4e73df;
+      }
+      .footer-social-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        background-color: #f1f5f9;
+        color: #475569;
+        border-radius: 8px;
+        margin-right: 0.5rem;
+        font-size: 0.95rem;
+        text-decoration: none;
+      }
+      .footer-social-links a:hover {
+        background-color: #4e73df;
+        color: #ffffff;
+      }
+      .footer-bottom {
+        border-top: 1px solid #f1f5f9;
+        margin-top: 2rem;
+        padding-top: 1.25rem;
+        font-size: 0.8rem;
+        color: #94a3b8;
+      }
+
       /* ==========================================================
          --- ELEGANT DARK THEME OVERRIDES (.dark-theme) ---
          ========================================================== */
@@ -407,6 +486,37 @@
         color: #fff;
       }
 
+      /* Dark Theme Overrides for Footer */
+      body.dark-theme .main-footer {
+        background-color: #0b111e;
+        border-top: 1px solid #1e293b;
+      }
+      body.dark-theme .footer-brand {
+        color: #ffffff;
+      }
+      body.dark-theme .footer-title {
+        color: #ffffff;
+      }
+      body.dark-theme .footer-desc,
+      body.dark-theme .footer-links a {
+        color: #94a3b8;
+      }
+      body.dark-theme .footer-links a:hover {
+        color: #38bdf8;
+      }
+      body.dark-theme .footer-social-links a {
+        background-color: #1e293b;
+        color: #cbd5e1;
+      }
+      body.dark-theme .footer-social-links a:hover {
+        background-color: #4e73df;
+        color: #ffffff;
+      }
+      body.dark-theme .footer-bottom {
+        border-top: 1px solid #1e293b;
+        color: #64748b;
+      }
+
       /* --- Responsive Breakpoints --- */
       @media (min-width: 768px) {
         body {
@@ -505,6 +615,83 @@
         <p>Coba kata kunci lain atau periksa kembali database kamu.</p>
       </div>
     </main>
+
+    <footer class="main-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-5 col-md-12 mb-4 mb-lg-0">
+            <h4 class="footer-brand">Tech<span>Blog.</span></h4>
+            <p class="footer-desc">
+              Platform berbagi wawasan koding, framework, tips & trik developer,
+              serta pembaruan teknologi terkini yang dikemas secara interaktif
+              dan aplikatif dari hulu ke hilir.
+            </p>
+            <div class="footer-social-links mt-3">
+              <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="#" aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-sm-6 col-6 mb-4 mb-sm-0 pl-lg-5">
+            <h5 class="footer-title">Jelajahi</h5>
+            <ul class="footer-links">
+              <li><a href="#">Beranda</a></li>
+              <li><a href="#">Tutorial PHP</a></li>
+              <li><a href="#">Frontend Tips</a></li>
+              <li><a href="#">Database MySQL</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-sm-6 col-6 mb-4 mb-sm-0">
+            <h5 class="footer-title">Teknologi</h5>
+            <ul class="footer-links">
+              <li>
+                <a href="https://www.php.net/" target="_blank" rel="noopener"
+                  >PHP 8 Core Engine</a
+                >
+              </li>
+              <li>
+                <a href="https://www.mysql.com/" target="_blank" rel="noopener"
+                  >MySQL Relational DB</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://getbootstrap.com/"
+                  target="_blank"
+                  rel="noopener"
+                  >Bootstrap Responsive Framework</a
+                >
+              </li>
+              <li>
+                <a href="https://netlify.com/" target="_blank" rel="noopener"
+                  >Netlify Serverless Core</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row footer-bottom text-center text-md-left">
+          <div class="col-md-6 mb-2 mb-md-0">
+            &copy; <span id="copyrightYear"></span> <strong>TechBlog</strong>.
+            All Rights Reserved.
+          </div>
+          <div class="col-md-6 text-md-right text-muted small">
+            Designed with <i class="fas fa-heart text-danger mx-1"></i> for
+            Developers
+          </div>
+        </div>
+      </div>
+    </footer>
 
     <div
       class="modal fade"
@@ -619,6 +806,10 @@
       const themeToggleBtn = document.getElementById("themeToggle");
       const searchInput = document.getElementById("searchInput");
 
+      // Set tahun copyright secara otomatis
+      document.getElementById("copyrightYear").textContent =
+        new Date().getFullYear();
+
       // ==========================================================
       // ENGINE DARK / LIGHT MODE
       // ==========================================================
@@ -672,7 +863,6 @@
           if (!response.ok) throw new Error("Gagal terhubung ke API");
           const result = await response.json();
 
-          // Menyesuaikan dengan struktur response baru yang dibungkus objek { data: [...] }
           if (
             result &&
             result.status &&
@@ -742,7 +932,6 @@
         let htmlContent = "";
 
         articles.forEach((item) => {
-          // Sinkronisasi dengan properti gambar_url langsung dari API
           let imagePath = item.gambar_url
             ? item.gambar_url
             : `${BASE_URL}/uploads/${item.gambar}`;

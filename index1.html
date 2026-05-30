@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TechBlog - Masa Depan Hari Ini</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Typography & Color Palette */
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f4f7f6;
+        color: #2b2b2b;
+      }
+      .text-primary-custom {
+        color: #4e73df;
+      }
+      .bg-primary-custom {
+        background-color: #4e73df;
+      }
+
+      /* Navbar Stylish */
+      .navbar {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.5rem;
+        letter-spacing: -0.5px;
+        color: #2b2b2b !important;
+      }
+      .navbar-brand span {
+        color: #4e73df;
+      }
+
+      /* Hero Section */
+      .hero-section {
+        padding: 4rem 1rem 2rem;
+        text-align: center;
+      }
+      .hero-title {
+        font-weight: 700;
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+      }
+      .hero-subtitle {
+        color: #6c757d;
+        font-size: 1rem;
+        font-weight: 300;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Card Blog Elegant */
+      .article-card {
+        background: #fff;
+        border: none;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .article-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(78, 115, 223, 0.15);
+      }
+      .article-img-wrapper {
+        position: relative;
+        overflow: hidden;
+        padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      }
+      .article-img-wrapper img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      .article-card:hover .article-img-wrapper img {
+        transform: scale(1.05);
+      }
+      .category-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: rgba(78, 115, 223, 0.9);
+        color: #fff;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        z-index: 1;
+      }
+      .article-body {
+        padding: 1.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .article-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        line-height: 1.4;
+        margin-bottom: 0.75rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .article-excerpt {
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-bottom: 1.5rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        flex: 1;
+      }
+      .article-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #eee;
+        padding-top: 1rem;
+        font-size: 0.8rem;
+        color: #a0a5aa;
+        font-weight: 500;
+      }
+
+      /* Read More Button */
+      .btn-read-more {
+        background-color: #e8edff;
+        color: #4e73df;
+        font-weight: 600;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        transition: all 0.2s;
+        border: none;
+      }
+      .btn-read-more:hover {
+        background-color: #4e73df;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      /* Loader */
+      .loader {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #4e73df;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 2rem auto;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Tech<span>Blog.</span></a>
+        <div class="d-none d-md-block">
+          <input
+            type="text"
+            class="form-control form-control-sm rounded-pill px-3"
+            placeholder="Pencarian cepat..."
+            style="border: 1px solid #e0e0e0; background: #f8f9fa"
+          />
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-section">
+      <div class="container">
+        <h1 class="hero-title">
+          Jelajahi Masa Depan <br /><span class="text-primary-custom"
+            >Teknologi & Kode</span
+          >
+        </h1>
+        <p class="hero-subtitle">
+          Membahas tren artificial intelligence, gaya hidup digital, dan
+          ekosistem koding masa kini dengan bahasa yang mudah dipahami.
+        </p>
+      </div>
+    </section>
+
+    <main class="container my-5">
+      <div id="loadingIndicator" class="loader"></div>
+      <div id="articleGrid" class="row"></div>
+
+      <div id="errorMessage" class="text-center text-muted d-none py-5">
+        <i class="fas fa-folder-open fa-3x mb-3 text-light"></i>
+        <h5>Oops! Tidak ada artikel ditemukan.</h5>
+        <p>Pastikan URL API kamu sudah benar dan database tidak kosong.</p>
+      </div>
+    </main>
+
+    <div
+      class="modal fade"
+      id="readModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+        role="document"
+      >
+        <div class="modal-content" style="border-radius: 20px; border: none">
+          <div class="modal-body p-0">
+            <button
+              type="button"
+              class="close position-absolute"
+              data-dismiss="modal"
+              style="
+                right: 15px;
+                top: 15px;
+                z-index: 10;
+                background: #fff;
+                border-radius: 50%;
+                width: 35px;
+                height: 35px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+              "
+            >
+              &times;
+            </button>
+            <img
+              id="modalImg"
+              src=""
+              class="w-100"
+              style="
+                height: 300px;
+                object-fit: cover;
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+              "
+            />
+            <div class="p-4 p-md-5">
+              <span
+                id="modalCat"
+                class="text-primary-custom font-weight-bold text-uppercase small"
+                style="letter-spacing: 1px"
+              ></span>
+              <h2
+                id="modalTitle"
+                class="font-weight-bold mt-2 mb-3"
+                style="line-height: 1.3; font-size: 1.8rem"
+              ></h2>
+              <div
+                class="d-flex align-items-center mb-4 text-muted small font-weight-bold"
+              >
+                <i class="far fa-user mr-2"></i>
+                <span id="modalAuthor" class="mr-3"></span>
+                <i class="far fa-calendar-alt mr-2"></i>
+                <span id="modalDate"></span>
+              </div>
+              <div
+                id="modalContent"
+                style="
+                  color: #555;
+                  line-height: 1.9;
+                  font-size: 1.05rem;
+                  white-space: pre-line;
+                "
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // ==========================================================
+      // 1. KONFIGURASI URL API (SESUAIKAN DENGAN LARAGON KAMU)
+      // ==========================================================
+      // Ubah link ini ke alamat API yang merespons dengan JSON (misal hasil dari api/artikel.php)
+      // Jika kamu belum membuat API khusus, arahkan ke URL tempat kamu mencetak JSON artikel.
+      const BASE_URL = "http://localhost/apiblog";
+      const API_URL = `${BASE_URL}/proses-aksi.php?aksi=get_semua_artikel`;
+
+      /* * CATATAN PENTING:
+       * Karena di proses-aksi.php sebelumnya kita hanya membuat aksi get_detail (1 data),
+       * pastikan kamu menambahkan/memiliki endpoint API yang mereturn SEMUA artikel dalam bentuk array JSON.
+       * Asumsi script ini adalah API mereturn format: { status: true, data: [{id, judul, isi, gambar, nama_kategori, tanggal, pemosting}] }
+       */
+
+      const articleGrid = document.getElementById("articleGrid");
+      const loader = document.getElementById("loadingIndicator");
+      const errorMessage = document.getElementById("errorMessage");
+
+      // Fungsi Format Tanggal Indonesia
+      function formatDate(dateString) {
+        const options = { day: "numeric", month: "short", year: "numeric" };
+        return new Date(dateString).toLocaleDateString("id-ID", options);
+      }
+
+      // Fungsi Potong Teks untuk Excerpt (jika tidak pakai CSS line-clamp)
+      function stripHTML(html) {
+        let doc = new DOMParser().parseFromString(html, "text/html");
+        return doc.body.textContent || "";
+      }
+
+      // Fetch Data dari API
+      // Fetch Data dari API Asli Database
+      async function fetchArticles() {
+        try {
+          // Melakukan request ke backend PHP kamu
+          const response = await fetch(API_URL);
+
+          if (!response.ok) throw new Error("Gagal terhubung ke API");
+
+          // Mengubah respons backend menjadi array JavaScript
+          const result = await response.json();
+
+          // Jika data berhasil ditangkap dan tidak kosong
+          if (result && result.length > 0) {
+            renderArticles(result); // Tampilkan semua datanya!
+          } else {
+            loader.classList.add("d-none");
+            errorMessage.classList.remove("d-none");
+          }
+        } catch (error) {
+          console.error("Error Fetching Data: ", error);
+          loader.classList.add("d-none");
+          errorMessage.classList.remove("d-none");
+        }
+      }
+
+      // Fungsi Render HTML Grid
+      function renderArticles(articles) {
+        loader.classList.add("d-none");
+        let htmlContent = "";
+
+        articles.forEach((item) => {
+          // Perbaiki path gambar dari URL
+          let imagePath = item.gambar.includes("http")
+            ? item.gambar
+            : `${BASE_URL}/uploads/${item.gambar}`;
+          let cleanExcerpt = stripHTML(item.isi);
+
+          htmlContent += `
+                    <div class="col-lg-4 col-md-6 col-12 mb-4">
+                        <div class="article-card">
+                            <div class="article-img-wrapper">
+                                <span class="category-badge">${item.nama_kategori || "Umum"}</span>
+                                <img src="${imagePath}" onerror="this.src='https://via.placeholder.com/600x400?text=Image+Not+Found'">
+                            </div>
+                            <div class="article-body">
+                                <h3 class="article-title">${item.judul}</h3>
+                                <p class="article-excerpt">${cleanExcerpt}</p>
+                                <div class="article-footer">
+                                    <span><i class="far fa-calendar-alt mr-1"></i> ${formatDate(item.tanggal)}</span>
+                                    <button class="btn btn-read-more" onclick='openReadModal(${JSON.stringify(item).replace(/'/g, "&apos;")})'>
+                                        Baca <i class="fas fa-arrow-right ml-1" style="font-size: 0.7rem;"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+        });
+
+        articleGrid.innerHTML = htmlContent;
+      }
+
+      // Fungsi Buka Modal Detail Baca
+      function openReadModal(item) {
+        let imagePath = item.gambar.includes("http")
+          ? item.gambar
+          : `${BASE_URL}/uploads/${item.gambar}`;
+
+        document.getElementById("modalImg").src = imagePath;
+        document.getElementById("modalCat").innerText =
+          item.nama_kategori || "Umum";
+        document.getElementById("modalTitle").innerText = item.judul;
+        document.getElementById("modalAuthor").innerText = item.pemosting;
+        document.getElementById("modalDate").innerText = formatDate(
+          item.tanggal,
+        );
+        document.getElementById("modalContent").innerText = item.isi;
+
+        $("#readModal").modal("show");
+      }
+
+      // Inisialisasi awal saat DOM siap
+      document.addEventListener("DOMContentLoaded", () => {
+        fetchArticles();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TechBlog - Masa Depan Hari Ini</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* --- Smooth Theme Transition --- */
+      *,
+      *::before,
+      *::after {
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease,
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      /* --- Base Styles (Light Mode Default) --- */
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f8fafc;
+        color: #1e293b;
+        font-size: 14px;
+      }
+
+      .text-primary-custom {
+        color: #4e73df;
+      }
+      .bg-primary-custom {
+        background-color: #4e73df;
+      }
+
+      /* Navbar */
+      .navbar {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        padding: 0.75rem 1rem;
+      }
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.3rem;
+        letter-spacing: -0.5px;
+        color: #0f172a !important;
+      }
+      .navbar-brand span {
+        color: #4e73df;
+      }
+
+      /* Theme Toggle Button */
+      .btn-theme-toggle {
+        background: #f1f5f9;
+        color: #475569;
+        border: none;
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        cursor: pointer;
+      }
+      .btn-theme-toggle:hover {
+        background: #e2e8f0;
+      }
+
+      /* Hero Section */
+      .hero-section {
+        padding: 3rem 1rem 1.5rem;
+        text-align: center;
+        background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 100%);
+      }
+      .hero-title {
+        font-weight: 700;
+        font-size: 1.8rem;
+        line-height: 1.3;
+        margin-bottom: 0.75rem;
+        color: #0f172a;
+      }
+      .hero-subtitle {
+        color: #64748b;
+        font-size: 0.9rem;
+        font-weight: 400;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Elegant Search Input Wrapper */
+      .search-container {
+        margin-bottom: 2rem;
+      }
+      .search-input-custom {
+        border: 1px solid #e2e8f0;
+        background: #fff;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        height: 48px;
+        font-size: 0.95rem;
+        border-radius: 12px !important;
+      }
+      .search-input-custom:focus {
+        border-color: #4e73df;
+        box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
+      }
+
+      /* Article Card */
+      .article-card {
+        background: #fff;
+        border: none;
+        border-radius: 16px;
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.05),
+          0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .article-card:hover {
+        transform: translateY(-4px);
+        box-shadow:
+          0 20px 25px -5px rgba(78, 115, 223, 0.1),
+          0 10px 10px -5px rgba(78, 115, 223, 0.04);
+      }
+      .article-img-wrapper {
+        position: relative;
+        overflow: hidden;
+        padding-top: 56.25%;
+        background-color: #e2e8f0;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+      }
+      .article-img-wrapper img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .category-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(4px);
+        color: #4e73df;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        z-index: 1;
+      }
+      .article-body {
+        padding: 1.25rem;
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+      }
+      .article-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        line-height: 1.4;
+        margin-bottom: 0.5rem;
+        color: #0f172a;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .article-excerpt {
+        font-size: 0.85rem;
+        color: #64748b;
+        margin-bottom: 1.25rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.5;
+        word-break: break-word;
+      }
+      .article-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #f1f5f9;
+        padding-top: 0.85rem;
+        font-size: 0.75rem;
+        color: #94a3b8;
+        margin-top: auto;
+      }
+
+      .btn-read-more {
+        background-color: #f0f4ff;
+        color: #4e73df;
+        font-weight: 600;
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        border: none;
+      }
+      .btn-read-more:hover {
+        background-color: #4e73df;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      /* Close Bottom Button */
+      .btn-close-bottom {
+        background-color: #f1f5f9;
+        color: #475569;
+        font-weight: 600;
+        border-radius: 8px;
+        padding: 8px 24px;
+        font-size: 0.9rem;
+        border: none;
+        transition: all 0.2s;
+      }
+      .btn-close-bottom:hover {
+        background-color: #e2e8f0;
+        color: #1e293b;
+      }
+
+      /* Pagination */
+      .custom-pagination .page-link {
+        border: none;
+        color: #64748b;
+        background-color: #fff;
+        padding: 10px 16px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      }
+      .custom-pagination .page-item.active .page-link {
+        background-color: #4e73df;
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(78, 115, 223, 0.3);
+      }
+      .custom-pagination .page-link:hover:not(.disabled) {
+        background-color: #e8edff;
+        color: #4e73df;
+      }
+
+      /* Loader */
+      .loader {
+        border: 3px solid #e2e8f0;
+        border-top: 3px solid #4e73df;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        animation: spin 0.8s linear infinite;
+        margin: 2rem auto;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Styling khusus untuk isi artikel yang di-generate HTML */
+      #modalContent img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 1rem 0;
+      }
+      #modalContent pre[class*="language-"] {
+        border-radius: 8px;
+        margin: 1.5rem 0;
+        font-size: 0.9rem;
+      }
+      #modalContent p {
+        margin-bottom: 1rem;
+      }
+
+      /* ==========================================================
+         --- ELEGANT DARK THEME OVERRIDES (.dark-theme) ---
+         ========================================================== */
+      body.dark-theme {
+        background-color: #0f172a;
+        color: #f1f5f9;
+      }
+
+      body.dark-theme .navbar {
+        background: rgba(15, 23, 42, 0.85);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      }
+      body.dark-theme .navbar-brand {
+        color: #ffffff !important;
+      }
+
+      body.dark-theme .btn-theme-toggle {
+        background: #1e293b;
+        color: #f59e0b;
+      }
+      body.dark-theme .btn-theme-toggle:hover {
+        background: #334155;
+      }
+
+      body.dark-theme .hero-section {
+        background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+      }
+      body.dark-theme .hero-title {
+        color: #ffffff;
+      }
+      body.dark-theme .hero-subtitle {
+        color: #94a3b8;
+      }
+
+      body.dark-theme .search-input-custom {
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+        color: #fff;
+      }
+      body.dark-theme .search-input-custom::placeholder {
+        color: #64748b;
+      }
+
+      body.dark-theme .article-card {
+        background: #1e293b;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+      }
+      body.dark-theme .article-title {
+        color: #ffffff;
+      }
+      body.dark-theme .article-excerpt {
+        color: #94a3b8;
+      }
+      body.dark-theme .article-footer {
+        border-top: 1px solid #334155;
+        color: #64748b;
+      }
+      body.dark-theme .category-badge {
+        background: rgba(15, 23, 42, 0.8);
+        color: #38bdf8;
+      }
+      body.dark-theme .btn-read-more {
+        background-color: #334155;
+        color: #38bdf8;
+      }
+      body.dark-theme .btn-read-more:hover {
+        background-color: #4e73df;
+        color: #fff;
+      }
+
+      body.dark-theme .custom-pagination .page-link {
+        background-color: #1e293b;
+        color: #94a3b8;
+      }
+      body.dark-theme .custom-pagination .page-item.active .page-link {
+        background-color: #4e73df;
+        color: #fff;
+      }
+      body.dark-theme .custom-pagination .page-link:hover:not(.disabled) {
+        background-color: #334155;
+        color: #ffffff;
+      }
+      body.dark-theme .custom-pagination .page-item.disabled .page-link {
+        background-color: #0f172a;
+        color: #334155;
+      }
+
+      body.dark-theme .modal-content {
+        background-color: #1e293b;
+        color: #f1f5f9;
+      }
+      body.dark-theme .modal-content #modalContent {
+        color: #cbd5e1;
+      }
+      body.dark-theme .modal-body .close {
+        background: #1e293b;
+        color: #fff;
+      }
+
+      body.dark-theme .btn-close-bottom {
+        background-color: #334155;
+        color: #cbd5e1;
+      }
+      body.dark-theme .btn-close-bottom:hover {
+        background-color: #475569;
+        color: #fff;
+      }
+
+      /* --- Responsive Breakpoints --- */
+      @media (min-width: 768px) {
+        body {
+          font-size: 15px;
+        }
+        .navbar-brand {
+          font-size: 1.5rem;
+        }
+        .hero-section {
+          padding: 4rem 1rem 2.5rem;
+        }
+        .hero-title {
+          font-size: 2.4rem;
+        }
+        .hero-subtitle {
+          font-size: 1rem;
+        }
+        .article-body {
+          padding: 1.5rem;
+        }
+        .article-title {
+          font-size: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand sticky-top">
+      <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand" href="#">Tech<span>Blog.</span></a>
+
+        <button
+          id="themeToggle"
+          class="btn-theme-toggle"
+          aria-label="Toggle Theme"
+        >
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </nav>
+
+    <section class="hero-section">
+      <div class="container">
+        <h1 class="hero-title">
+          Jelajahi Masa Depan <br /><span class="text-primary-custom"
+            >Teknologi & Kode</span
+          >
+        </h1>
+        <p class="hero-subtitle">
+          Membahas tren artificial intelligence, gaya hidup digital, dan
+          ekosistem koding masa kini dengan bahasa yang mudah dipahami.
+        </p>
+      </div>
+    </section>
+
+    <main class="container my-4">
+      <div class="row search-container justify-content-center">
+        <div class="col-12 col-md-6">
+          <div class="position-relative">
+            <input
+              type="text"
+              id="searchInput"
+              class="form-control pl-4 pr-5 search-input-custom"
+              placeholder="Cari artikel berdasarkan judul/isi..."
+            />
+            <i
+              class="fas fa-search position-absolute text-muted"
+              style="
+                right: 18px;
+                top: 50%;
+                transform: translateY(-50%);
+                pointer-events: none;
+              "
+            ></i>
+          </div>
+        </div>
+      </div>
+
+      <div id="loadingIndicator" class="loader"></div>
+
+      <div id="articleGrid" class="row"></div>
+
+      <nav aria-label="Navigasi Halaman" class="mt-4 mt-md-5">
+        <ul
+          id="paginationContainer"
+          class="pagination justify-content-center custom-pagination"
+        ></ul>
+      </nav>
+
+      <div id="errorMessage" class="text-center text-muted d-none py-5">
+        <i
+          class="fas fa-search shadow-sm p-3 bg-white rounded-circle mb-3 text-secondary"
+          style="font-size: 2rem"
+        ></i>
+        <h5>Artikel tidak ditemukan</h5>
+        <p>Coba kata kunci lain atau periksa kembali database kamu.</p>
+      </div>
+    </main>
+
+    <div
+      class="modal fade"
+      id="readModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+        role="document"
+      >
+        <div class="modal-content" style="border-radius: 20px; border: none">
+          <div class="modal-body p-0">
+            <button
+              type="button"
+              class="close position-absolute"
+              data-dismiss="modal"
+              style="
+                right: 15px;
+                top: 15px;
+                z-index: 10;
+                border-radius: 50%;
+                width: 35px;
+                height: 35px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              &times;
+            </button>
+            <img
+              id="modalImg"
+              src=""
+              class="w-100"
+              style="
+                height: auto;
+                display: block;
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
+              "
+            />
+            <div class="p-4 p-md-5">
+              <span
+                id="modalCat"
+                class="text-primary-custom font-weight-bold text-uppercase small"
+                style="letter-spacing: 1px"
+              ></span>
+              <h2
+                id="modalTitle"
+                class="font-weight-bold mt-2 mb-3"
+                style="line-height: 1.3; font-size: 1.5rem"
+              ></h2>
+              <div
+                class="d-flex align-items-center mb-4 text-muted small font-weight-bold"
+              >
+                <i class="far fa-user mr-2"></i>
+                <span id="modalAuthor" class="mr-3"></span>
+                <i class="far fa-calendar-alt mr-2"></i>
+                <span id="modalDate"></span>
+              </div>
+              <div
+                id="modalContent"
+                style="line-height: 1.8; font-size: 0.95rem"
+              ></div>
+
+              <div class="text-center mt-5 mb-2">
+                <button
+                  type="button"
+                  class="btn btn-close-bottom rounded-pill"
+                  data-dismiss="modal"
+                >
+                  Tutup Artikel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+
+    <script>
+      // ==========================================================
+      // CONFIGURATION & GLOBAL STATE (Sudah Mengarah ke Shared Hosting)
+      // ==========================================================
+      const BASE_URL = "https://blog.robbyilham.com";
+      const API_URL = `${BASE_URL}/api/artikel.php`;
+
+      let allArticles = [];
+      let filteredArticles = [];
+      let currentPage = 1;
+      const itemsPerPage = 6;
+
+      const articleGrid = document.getElementById("articleGrid");
+      const loader = document.getElementById("loadingIndicator");
+      const errorMessage = document.getElementById("errorMessage");
+      const paginationContainer = document.getElementById(
+        "paginationContainer",
+      );
+      const themeToggleBtn = document.getElementById("themeToggle");
+      const searchInput = document.getElementById("searchInput");
+
+      // ==========================================================
+      // ENGINE DARK / LIGHT MODE
+      // ==========================================================
+      function initTheme() {
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+
+        if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+          document.body.classList.add("dark-theme");
+          themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+          document.body.classList.remove("dark-theme");
+          themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+      }
+
+      themeToggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark-theme");
+        if (document.body.classList.contains("dark-theme")) {
+          localStorage.setItem("theme", "dark");
+          themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+          localStorage.setItem("theme", "light");
+          themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+      });
+
+      initTheme();
+
+      // ==========================================================
+      // CORE BLOG FUNCTIONS (REAL-TIME FILTERING & PAGINATION)
+      // ==========================================================
+      function formatDate(dateString) {
+        if (!dateString) return "-";
+        const options = { day: "numeric", month: "short", year: "numeric" };
+        return new Date(dateString).toLocaleDateString("id-ID", options);
+      }
+
+      function stripHTML(html) {
+        let spacedHtml = html.replace(/<\/(p|div|h[1-6]|li)>/gi, " </$1>");
+        spacedHtml = spacedHtml.replace(/<br\s*[\/]?>/gi, " ");
+        let doc = new DOMParser().parseFromString(spacedHtml, "text/html");
+        return doc.body.textContent || "";
+      }
+
+      async function fetchArticles() {
+        try {
+          const response = await fetch(API_URL);
+          if (!response.ok) throw new Error("Gagal terhubung ke API");
+          const result = await response.json();
+
+          // Menyesuaikan dengan struktur response baru yang dibungkus objek { data: [...] }
+          if (
+            result &&
+            result.status &&
+            result.data &&
+            result.data.length > 0
+          ) {
+            allArticles = result.data;
+            filteredArticles = result.data;
+            displayPage(1);
+          } else {
+            showError();
+          }
+        } catch (error) {
+          console.error("Error Fetching Data: ", error);
+          showError();
+        }
+      }
+
+      function showError() {
+        loader.classList.add("d-none");
+        articleGrid.innerHTML = "";
+        paginationContainer.innerHTML = "";
+        errorMessage.classList.remove("d-none");
+      }
+
+      searchInput.addEventListener("input", (e) => {
+        const keyword = e.target.value.toLowerCase().trim();
+
+        filteredArticles = allArticles.filter((item) => {
+          const matchTitle = item.judul
+            ? item.judul.toLowerCase().includes(keyword)
+            : false;
+          const matchContent = item.isi
+            ? item.isi.toLowerCase().includes(keyword)
+            : false;
+          const matchCategory = item.nama_kategori
+            ? item.nama_kategori.toLowerCase().includes(keyword)
+            : false;
+
+          return matchTitle || matchContent || matchCategory;
+        });
+
+        if (filteredArticles.length > 0) {
+          errorMessage.classList.add("d-none");
+          displayPage(1);
+        } else {
+          articleGrid.innerHTML = "";
+          paginationContainer.innerHTML = "";
+          errorMessage.classList.remove("d-none");
+        }
+      });
+
+      function displayPage(page) {
+        currentPage = page;
+        loader.classList.add("d-none");
+
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        const paginatedArticles = filteredArticles.slice(startIndex, endIndex);
+
+        renderArticles(paginatedArticles);
+        renderPaginationControls();
+      }
+
+      function renderArticles(articles) {
+        let htmlContent = "";
+
+        articles.forEach((item) => {
+          // Sinkronisasi dengan properti gambar_url langsung dari API
+          let imagePath = item.gambar_url
+            ? item.gambar_url
+            : `${BASE_URL}/uploads/${item.gambar}`;
+
+          let cleanExcerpt = stripHTML(item.isi);
+
+          if (cleanExcerpt.length > 120) {
+            cleanExcerpt = cleanExcerpt.substring(0, 120) + "...";
+          }
+
+          htmlContent += `
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+              <div class="article-card">
+                <div class="article-img-wrapper">
+                  <span class="category-badge">${item.nama_kategori || "Umum"}</span>
+                  <img src="${imagePath}" onerror="this.src='https://via.placeholder.com/600x400?text=Image+Not+Found'">
+                </div>
+                <div class="article-body">
+                  <h3 class="article-title">${item.judul}</h3>
+                  <p class="article-excerpt">${cleanExcerpt}</p>
+                  <div class="article-footer">
+                    <span><i class="far fa-calendar-alt mr-1"></i> ${formatDate(item.tanggal)}</span>
+                    <button class="btn btn-read-more rounded-pill" onclick="openReadModal('${item.id}')">
+                      Baca <i class="fas fa-arrow-right ml-1" style="font-size: 0.7rem;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        articleGrid.innerHTML = htmlContent;
+      }
+
+      function renderPaginationControls() {
+        const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
+        let paginationHtml = "";
+
+        if (totalPages <= 1) {
+          paginationContainer.innerHTML = "";
+          return;
+        }
+
+        paginationHtml += `
+          <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
+            <a class="page-link" href="javascript:void(0)" onclick="${currentPage > 1 ? `displayPage(${currentPage - 1})` : ""}" aria-label="Previous">
+              <i class="fas fa-chevron-left"></i>
+            </a>
+          </li>
+        `;
+
+        for (let i = 1; i <= totalPages; i++) {
+          paginationHtml += `
+            <li class="page-item ${currentPage === i ? "active" : ""}">
+              <a class="page-link" href="javascript:void(0)" onclick="displayPage(${i})">${i}</a>
+            </li>
+          `;
+        }
+
+        paginationHtml += `
+          <li class="page-item ${currentPage === totalPages ? "disabled" : ""}">
+            <a class="page-link" href="javascript:void(0)" onclick="${currentPage < totalPages ? `displayPage(${currentPage + 1})` : ""}" aria-label="Next">
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          </li>
+        `;
+
+        paginationContainer.innerHTML = paginationHtml;
+      }
+
+      function openReadModal(id) {
+        const item = allArticles.find((article) => article.id == id);
+        if (!item) return;
+
+        let imagePath = item.gambar_url
+          ? item.gambar_url
+          : `${BASE_URL}/uploads/${item.gambar}`;
+
+        document.getElementById("modalImg").src = imagePath;
+        document.getElementById("modalCat").innerText =
+          item.nama_kategori || "Umum";
+        document.getElementById("modalTitle").innerText = item.judul;
+        document.getElementById("modalAuthor").innerText =
+          item.pemosting || "Admin";
+        document.getElementById("modalDate").innerText = formatDate(
+          item.tanggal,
+        );
+
+        document.getElementById("modalContent").innerHTML = item.isi;
+
+        setTimeout(function () {
+          if (window.Prism) {
+            Prism.highlightAll();
+          }
+        }, 50);
+
+        $("#readModal").modal("show");
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        fetchArticles();
+      });
+    </script>
+  </body>
+</html>

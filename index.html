@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TechBlog - Masa Depan Hari Ini</title>
+    <title>TechBloggi - Masa Depan Hari Ini</title>
 
     <link
       rel="stylesheet"
@@ -546,7 +546,7 @@
   <body>
     <nav class="navbar navbar-expand sticky-top">
       <div class="container d-flex justify-content-between align-items-center">
-        <a class="navbar-brand" href="#">Tech<span>Blog.</span></a>
+        <a class="navbar-brand" href="#">Tech<span>Bloggi.</span></a>
 
         <button
           id="themeToggle"
@@ -620,7 +620,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-5 col-md-12 mb-4 mb-lg-0">
-            <h4 class="footer-brand">Tech<span>Blog.</span></h4>
+            <h4 class="footer-brand">Tech<span>Bloggi.</span></h4>
             <p class="footer-desc">
               Platform berbagi wawasan koding, framework, tips & trik developer,
               serta pembaruan teknologi terkini yang dikemas secara interaktif
@@ -850,6 +850,7 @@
         return new Date(dateString).toLocaleDateString("id-ID", options);
       }
 
+      // Memastikan konversi HTML teks bersih untuk kutipan artikel
       function stripHTML(html) {
         let spacedHtml = html.replace(/<\/(p|div|h[1-6]|li)>/gi, " </$1>");
         spacedHtml = spacedHtml.replace(/<br\s*[\/]?>/gi, " ");
@@ -976,6 +977,7 @@
           return;
         }
 
+        // --- Tombol Previous ---
         paginationHtml += `
           <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
             <a class="page-link" href="javascript:void(0)" onclick="${currentPage > 1 ? `displayPage(${currentPage - 1})` : ""}" aria-label="Previous">
@@ -984,14 +986,41 @@
           </li>
         `;
 
+        // Batasan rentang angka di sekitar halaman aktif
+        const range = 1;
+
         for (let i = 1; i <= totalPages; i++) {
-          paginationHtml += `
-            <li class="page-item ${currentPage === i ? "active" : ""}">
-              <a class="page-link" href="javascript:void(0)" onclick="displayPage(${i})">${i}</a>
-            </li>
-          `;
+          // Menampilkan halaman pertama, terakhir, dan halaman sekitar rentang aktif
+          if (
+            i === 1 ||
+            i === totalPages ||
+            (i >= currentPage - range && i <= currentPage + range)
+          ) {
+            paginationHtml += `
+              <li class="page-item ${currentPage === i ? "active" : ""}">
+                <a class="page-link" href="javascript:void(0)" onclick="displayPage(${i})">${i}</a>
+              </li>
+            `;
+          }
+          // Pembatas titik-titik kiri
+          else if (i === currentPage - range - 1) {
+            paginationHtml += `
+              <li class="page-item disabled">
+                <span class="page-link" style="background: transparent; border: none; box-shadow: none;">...</span>
+              </li>
+            `;
+          }
+          // Pembatas titik-titik kanan
+          else if (i === currentPage + range + 1) {
+            paginationHtml += `
+              <li class="page-item disabled">
+                <span class="page-link" style="background: transparent; border: none; box-shadow: none;">...</span>
+              </li>
+            `;
+          }
         }
 
+        // --- Tombol Next ---
         paginationHtml += `
           <li class="page-item ${currentPage === totalPages ? "disabled" : ""}">
             <a class="page-link" href="javascript:void(0)" onclick="${currentPage < totalPages ? `displayPage(${currentPage + 1})` : ""}" aria-label="Next">
